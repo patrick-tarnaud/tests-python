@@ -3,6 +3,8 @@ from myModules.utils import majuscule, minuscule, capitalize, add_mult, replace
 from myClasses.Auto import Auto
 from myClasses.Moto import Moto
 from myClasses.Duree import Duree
+from myClasses.Etudiant import Etudiant
+from operator import attrgetter
 import os
 
 # from myModules import utils
@@ -112,3 +114,47 @@ d3 = d + 20
 print(d3)
 d4 = 4 + d3
 print(d4)
+
+# sort
+list1 = [9, 8, 7, 5, 7, 4]
+list1.sort()
+print(list1)
+list1 = [9, 8, 7, 5, 7, 4]
+list2 = sorted(list1)
+print(list2)
+
+list_init = [
+    Etudiant('Roger', 'Dupont', 22, 15),
+    Etudiant('Robert', 'Jojo', 32, 18),
+    Etudiant('Bob', 'Yeah', 48, 12),
+    Etudiant('Sophie', 'Flash', 45, 12),
+    Etudiant('Patrick', 'Ploua', 18, 19)
+]
+
+list_etudiants = list(list_init)
+
+print('liste étudiants non triée', list_etudiants)
+print('*************************************************************')
+list_etudiants.sort(key=lambda etudiant: etudiant.note_moyenne)
+print('list_etudiants triée sur note_moyenne via list.sort(key=)', list_etudiants)
+
+list_etudiants = list(list_init)
+
+print('list_etudiants triée sur note_moyenne via sorted(key=note_moyenne)',
+      sorted(list_etudiants, key=lambda etudiant: etudiant.note_moyenne))
+print('*************************************************************')
+
+print('list_etudiants triée sur age via sorted(key=age) ', sorted(list_etudiants, key=lambda etudiant: etudiant.age))
+print('*************************************************************')
+
+print('list_etudiants triée sur age en ordre inverse via sorted(key=age)',
+      sorted(list_etudiants, key=lambda etudiant: etudiant.age, reverse=True))
+
+print('*************************************************************')
+
+print('list_etudiants triée sur note_moyenne via sorted(attrgetter(\'note_moyenne\'))',
+      sorted(list_etudiants, key=attrgetter('note_moyenne')))
+print('*************************************************************')
+
+print('list_etudiants triée sur note_moyenne et sur age via sorted(attrgetter(\'note_moyenne\'))',
+      sorted(list_etudiants, key=attrgetter('note_moyenne', 'age')))
