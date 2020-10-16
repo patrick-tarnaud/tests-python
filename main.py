@@ -4,6 +4,7 @@ from myClasses.Auto import Auto
 from myClasses.Moto import Moto
 from myClasses.Duree import Duree
 from myClasses.Etudiant import Etudiant
+from myClasses.ListEtudiants import ListEtudiants
 from operator import attrgetter
 import os
 
@@ -123,7 +124,7 @@ list1 = [9, 8, 7, 5, 7, 4]
 list2 = sorted(list1)
 print(list2)
 
-list_init = [
+list_init_etudiants = [
     Etudiant('Roger', 'Dupont', 22, 15),
     Etudiant('Robert', 'Jojo', 32, 18),
     Etudiant('Bob', 'Yeah', 48, 12),
@@ -131,30 +132,46 @@ list_init = [
     Etudiant('Patrick', 'Ploua', 18, 19)
 ]
 
-list_etudiants = list(list_init)
+list_etudiants = list(list_init_etudiants)
 
 print('liste étudiants non triée', list_etudiants)
 print('*************************************************************')
 list_etudiants.sort(key=lambda etudiant: etudiant.note_moyenne)
-print('list_etudiants triée sur note_moyenne via list.sort(key=)', list_etudiants)
+print('list_etudiants triée sur note_moyenne via list.sort(key=)\n', list_etudiants)
 
-list_etudiants = list(list_init)
+list_etudiants = list(list_init_etudiants)
 
-print('list_etudiants triée sur note_moyenne via sorted(key=note_moyenne)',
+print('list_etudiants triée sur note_moyenne via sorted(key=note_moyenne)\n',
       sorted(list_etudiants, key=lambda etudiant: etudiant.note_moyenne))
 print('*************************************************************')
 
-print('list_etudiants triée sur age via sorted(key=age) ', sorted(list_etudiants, key=lambda etudiant: etudiant.age))
+print('list_etudiants triée sur age via sorted(key=age)\n', sorted(list_etudiants, key=lambda etudiant: etudiant.age))
 print('*************************************************************')
 
-print('list_etudiants triée sur age en ordre inverse via sorted(key=age)',
+print('list_etudiants triée sur age en ordre inverse via sorted(key=age)\n',
       sorted(list_etudiants, key=lambda etudiant: etudiant.age, reverse=True))
 
 print('*************************************************************')
 
-print('list_etudiants triée sur note_moyenne via sorted(attrgetter(\'note_moyenne\'))',
+print('list_etudiants triée sur note_moyenne via sorted(attrgetter(\'note_moyenne\'))\n',
       sorted(list_etudiants, key=attrgetter('note_moyenne')))
 print('*************************************************************')
 
-print('list_etudiants triée sur note_moyenne et sur age via sorted(attrgetter(\'note_moyenne\'))',
+print('list_etudiants triée sur note_moyenne et sur age via sorted(attrgetter(\'note_moyenne\'))\n',
       sorted(list_etudiants, key=attrgetter('note_moyenne', 'age')))
+print('*************************************************************')
+
+print('** iteration normale - for')
+for e in list_init_etudiants:
+    print(e)
+
+print('** iteration normale - print')
+print(list_init_etudiants)
+
+le = ListEtudiants(list_init_etudiants)
+print('** iteration inverse - for')
+for e in le:
+    print(e)
+
+print("** iteration inverse - print => le print n'appelle par __iter__")
+print(le)
