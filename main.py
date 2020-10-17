@@ -175,3 +175,46 @@ for e in le:
 
 print("** iteration inverse - print => le print n'appelle par __iter__")
 print(le)
+
+
+# generateur
+
+def generateur():
+    yield 1
+    yield 2
+    yield 3
+
+
+print('generateur()', generateur())
+
+# parcours manuel
+it = iter(generateur())
+print(next(it))
+print(next(it))
+print(next(it))
+
+# parcours for in
+for i in generateur():
+    print(i)
+
+# for i in range(3):
+#     print(i)
+
+list_etudiants = list(list_init_etudiants)
+
+
+# le generateur évite de créer une classe héritant de list surchargeant la méthode __iter__ et de créer une classe
+# d'itérateur sur la liste en définissant une méthode __next__ la classe ListEtudiants devient inutile. Le generateur
+# implemente de maniere cachée le iter (code avant le yield), le next (le yield) et le raise StopIteration en sortie
+def le_generateur(ple):
+    # iter
+    pos = len(ple) - 1
+    while pos >= 0:
+        # next
+        yield ple[pos]
+        pos -= 1
+    # StopIteration
+
+
+for e in le_generateur(list_etudiants):
+    print(e)
